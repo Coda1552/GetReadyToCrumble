@@ -3,11 +3,7 @@ package coda.getreadytocrumble.common.blocks;
 import coda.getreadytocrumble.common.blockentities.OvenBlockEntity;
 import coda.getreadytocrumble.registry.GRTCBlockEntities;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -17,15 +13,11 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraftforge.network.NetworkHooks;
 
 import javax.annotation.Nullable;
-import java.util.Random;
 
 public class OvenBlock extends AbstractFurnaceBlock {
-    public static final BooleanProperty BAKING = BooleanProperty.create("baking");
 
     public OvenBlock(Properties p_i48440_1_) {
         super(p_i48440_1_);
@@ -48,8 +40,30 @@ public class OvenBlock extends AbstractFurnaceBlock {
         }
     }
 
+
+    // attempt at the beeping, but it does not work
+/*    @Override
+    public void animateTick(BlockState state, Level world, BlockPos pos, Random rand) {
+
+        if (world.getBlockEntity(pos) instanceof OvenBlockEntity be) {
+            int cookingProgress = be.dataAccess.get(2);
+            int litTime = be.dataAccess.get(0);
+
+            // check if its lit
+            if (litTime > 0) {
+                world.playLocalSound(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, SoundEvents.GHAST_SCREAM, SoundSource.BLOCKS, 1.0F, 1.0F, true);
+
+            }
+
+            System.out.println(be.dataAccess.get(0));
+        }
+
+        super.animateTick(state, world, pos, rand);
+    }*/
+
     @Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level p_154640_, BlockState p_154641_, BlockEntityType<T> p_154642_) {
-        return createFurnaceTicker(p_154640_, p_154642_, GRTCBlockEntities.OVEN_BLOCK_ENTITY.get());
+        return createTickerHelper(p_154642_, GRTCBlockEntities.OVEN_BLOCK_ENTITY.get(), (level, pos, state, be) -> AbstractFurnaceBlockEntity.serverTick(level, pos, level.getBlockState(pos), be));
     }
+
 }
