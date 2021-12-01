@@ -1,0 +1,9 @@
+{
+  "type": "getreadytocrumble:baking",
+  "ingredient": {
+    "item": "minecraft:bread"
+  },
+  "result": "getreadytocrumble:magical_dough",
+  "experience": 0.35,
+  "cookingtime": 100
+}

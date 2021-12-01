@@ -9,7 +9,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -24,12 +23,8 @@ public class OvenBlockEntity extends AbstractFurnaceBlockEntity {
         return new TranslatableComponent("container." + GetReadyToCrumble.MOD_ID + ".oven");
     }
 
-    protected int getBurnDuration(ItemStack p_59786_) {
-        return 100;
-    }
-
     @Override
     protected AbstractContainerMenu createMenu(int id, Inventory player) {
-        return new OvenMenu(id, player);
+        return new OvenMenu(id, player, this, this.dataAccess);
     }
 }

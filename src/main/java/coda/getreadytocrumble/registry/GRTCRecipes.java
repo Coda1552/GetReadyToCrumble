@@ -14,7 +14,7 @@ import net.minecraftforge.registries.RegistryObject;
 public class GRTCRecipes {
     public static final DeferredRegister<RecipeSerializer<?>> RECIPES = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, GetReadyToCrumble.MOD_ID);
 
-//    public static final RegistryObject<RecipeSerializer<?>> BAKING_SERIALIZER = RECIPES.register("baking", new SimpleCookingSerializer<>(BakingRecipe::new, 100));
+    public static final RegistryObject<RecipeSerializer<?>> BAKING_SERIALIZER = RECIPES.register("baking", () -> new SimpleCookingSerializer<>(BakingRecipe::new, 100));
     public static final RecipeType<BakingRecipe> BAKING_TYPE = Registry.register(Registry.RECIPE_TYPE, new ResourceLocation(GetReadyToCrumble.MOD_ID, "baking"), new RecipeType<BakingRecipe>() {
         @Override
         public String toString() {
