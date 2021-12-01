@@ -4,6 +4,7 @@ import coda.getreadytocrumble.registry.*;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import software.bernie.geckolib3.GeckoLib;
 
 @Mod(GetReadyToCrumble.MOD_ID)
 public class GetReadyToCrumble {
@@ -17,5 +18,7 @@ public class GetReadyToCrumble {
         GRTCMenus.MENUS.register(bus);
         GRTCBlockEntities.BLOCK_ENTITIES.register(bus);
         GRTCRecipes.RECIPES.register(bus);
+
+        GeckoLib.initialize();
     }
 }
