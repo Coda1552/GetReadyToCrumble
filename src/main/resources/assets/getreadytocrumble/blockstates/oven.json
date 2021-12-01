@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "getreadytocrumble:block/oven",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "getreadytocrumble:block/oven"
+    },
+    "facing=south": {
+      "model": "getreadytocrumble:block/oven",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "getreadytocrumble:block/oven",
+      "y": 270
+    }
+  }
+}

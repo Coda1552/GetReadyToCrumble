@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/orientable_with_bottom",
+  "textures": {
+    "top": "getreadytocrumble:block/oven_top",
+    "bottom": "getreadytocrumble:block/oven_bottom",
+    "side": "getreadytocrumble:block/oven_side",
+    "front": "getreadytocrumble:block/oven_front"
+  }
+}

@@ -1,5 +1,9 @@
 {
   "itemGroup.getreadytocrumble": "Get Ready To Crumble",
 
-  "item.getreadytocrumble.magical_dough": "Magical Dough"
+  "item.getreadytocrumble.magical_dough": "Magical Dough",
+
+  "block.getreadytocrumble.oven": "Oven",
+
+  "container.getreadytocrumble.oven": "Oven"
 }
