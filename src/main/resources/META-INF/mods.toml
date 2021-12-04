@@ -29,9 +29,9 @@ description='''Let's get ready to crumble!!'''
     ordering="NONE"
     side="BOTH"
 [[dependencies.getreadytocrumble]]
-modId="geckolib"
+modId="minecraft"
 mandatory=true
 # This version range declares a minimum of the current minecraft version up to but not including the next major version
-versionRange="[3.3.0,3.4.0)"
+versionRange="[1.18.0,1.19.0)"
 ordering="NONE"
 side="BOTH"

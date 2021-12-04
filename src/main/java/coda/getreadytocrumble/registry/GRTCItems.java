@@ -1,6 +1,7 @@
 package coda.getreadytocrumble.registry;
 
 import coda.getreadytocrumble.GetReadyToCrumble;
+import coda.getreadytocrumble.common.items.GingerBreadManItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -24,4 +25,5 @@ public class GRTCItems {
             return true;
         }
     });
+    public static final RegistryObject<Item> GINGERBREAD_MAN = ITEMS.register("gingerbread_man", () -> new GingerBreadManItem(new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS).stacksTo(1)));
 }
