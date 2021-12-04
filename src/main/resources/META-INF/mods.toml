@@ -28,10 +28,3 @@ description='''Let's get ready to crumble!!'''
     versionRange="[1.18,1.19)"
     ordering="NONE"
     side="BOTH"
-[[dependencies.getreadytocrumble]]
-modId="minecraft"
-mandatory=true
-# This version range declares a minimum of the current minecraft version up to but not including the next major version
-versionRange="[1.18.0,1.19.0)"
-ordering="NONE"
-side="BOTH"
