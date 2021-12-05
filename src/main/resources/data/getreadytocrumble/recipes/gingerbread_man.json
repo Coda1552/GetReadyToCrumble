@@ -1,9 +1,9 @@
 {
   "type": "getreadytocrumble:baking",
   "ingredient": {
-    "item": "minecraft:bread"
+    "item": "getreadytocrumble:magical_dough"
   },
-  "result": "getreadytocrumble:magical_dough",
+  "result": "getreadytocrumble:gingerbread_man",
   "experience": 0.35,
   "cookingtime": 100
 }
