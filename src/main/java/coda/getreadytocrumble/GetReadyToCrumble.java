@@ -18,6 +18,7 @@ public class GetReadyToCrumble {
         GRTCMenus.MENUS.register(bus);
         GRTCBlockEntities.BLOCK_ENTITIES.register(bus);
         GRTCRecipes.RECIPES.register(bus);
+        GRTCEntities.ENTITIES.register(bus);
 
         GeckoLib.initialize();
     }
