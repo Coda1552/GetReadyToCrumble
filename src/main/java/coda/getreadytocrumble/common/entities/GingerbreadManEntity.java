@@ -29,10 +29,6 @@ public class GingerbreadManEntity extends PathfinderMob implements IAnimatable, 
         super(type, world);
     }
 
-    public static AttributeSupplier.Builder createAttributes() {
-        return createMobAttributes().add(Attributes.MAX_HEALTH, 15.0D).add(Attributes.ATTACK_DAMAGE, 1.2f).add(Attributes.ATTACK_DAMAGE, 1.2f).add(Attributes.MOVEMENT_SPEED, 0.275F).add(Attributes.ATTACK_DAMAGE, 4.0F).add(Attributes.FOLLOW_RANGE, 32.0D);
-    }
-
     @Override
     protected void registerGoals() {
         super.registerGoals();
