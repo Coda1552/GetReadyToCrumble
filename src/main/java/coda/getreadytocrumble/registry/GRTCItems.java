@@ -15,15 +15,15 @@ public class GRTCItems {
     public static final CreativeModeTab TAB = new CreativeModeTab(GetReadyToCrumble.MOD_ID) {
         @Override
         public ItemStack makeIcon() {
-            return new ItemStack(MAGICAL_DOUGH.get());
+            return new ItemStack(GINGERBREAD_MAN.get());
         }
     };
 
+    public static final RegistryObject<Item> GINGERBREAD_MAN = ITEMS.register("gingerbread_man", () -> new GingerBreadManItem(new Item.Properties().tab(TAB).stacksTo(1)));
     public static final RegistryObject<Item> MAGICAL_DOUGH = ITEMS.register("magical_dough", () -> new Item(new Item.Properties().tab(TAB).rarity(Rarity.RARE)) {
         @Override
         public boolean isFoil(ItemStack stack) {
             return true;
         }
     });
-    public static final RegistryObject<Item> GINGERBREAD_MAN = ITEMS.register("gingerbread_man", () -> new GingerBreadManItem(new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS).stacksTo(1)));
 }
