@@ -17,6 +17,9 @@ public class GingerbreadManModel extends AnimatedTickingGeoModel<GingerbreadManE
 
     @Override
     public ResourceLocation getTextureLocation(GingerbreadManEntity object) {
+        if(object.getEntityClass() == 1) {
+            return new ResourceLocation(GetReadyToCrumble.MOD_ID, "textures/entity/gingerbreadmen/gbm_1_knight.png");
+        }
         return new ResourceLocation(GetReadyToCrumble.MOD_ID, "textures/entity/gingerbreadmen/gbm_1.png");
     }
 

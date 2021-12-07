@@ -33,6 +33,7 @@ public class GingerBreadManItem extends Item {
             GingerbreadManEntity gbm = GRTCEntities.GINGERBREAD_MAN.get().create(level);
             Vec3 offset = player.getViewVector(1.0f);
             gbm.moveTo(player.getX(), player.getY(), player.getZ());
+            gbm.setOwner(player);
             gbm.finalizeSpawn((ServerLevel) level, level.getCurrentDifficultyAt(player.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
             level.addFreshEntity(gbm);
             player.getItemInHand(hand).shrink(1);
