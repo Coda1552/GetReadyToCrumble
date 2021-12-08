@@ -33,6 +33,7 @@ public class FollowPlayerOwnerGoal extends Goal {
         if(this.entity.distanceToSqr(this.entity.getOwner()) > 10.0f) {
             if (this.entity.distanceToSqr(this.entity.getOwner()) < 55.0f) {
                 this.entity.getNavigation().moveTo(this.entity.getOwner(), 1.0f);
+                this.entity.getLookControl().setLookAt(this.entity.getOwner());
             } else {
                 this.teleportToOwner();
             }

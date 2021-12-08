@@ -20,8 +20,11 @@ import net.minecraft.world.entity.animal.FlyingAnimal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.IAnimationTickable;
 import software.bernie.geckolib3.core.PlayState;
@@ -92,8 +95,10 @@ public class GingerbreadManEntity extends PathfinderMob implements IAnimatable, 
 
     @Override
     protected InteractionResult mobInteract(Player player, InteractionHand hand) {
-        if(player.getItemInHand(hand).is(Items.IRON_SWORD)){
+        if(player.getItemInHand(hand).is(Items.IRON_SWORD) || player.getItemInHand(hand).is(Items.IRON_AXE)){
+            this.setItemInHand(InteractionHand.MAIN_HAND,player.getItemInHand(hand));
             this.setEntityClass(1);
+            return InteractionResult.SUCCESS;
         }
         if(player.getItemInHand(hand).isEmpty()) {
             if (!this.getSitting()) {
