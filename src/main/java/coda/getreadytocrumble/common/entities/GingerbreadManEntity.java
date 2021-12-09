@@ -9,8 +9,8 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.ai.goal.FollowOwnerGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
@@ -36,39 +36,22 @@ public class GingerbreadManEntity extends TamableAnimal implements IAnimatable, 
     private static final EntityDataAccessor<Integer> CLASS   = SynchedEntityData.defineId(GingerbreadManEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> VARIANT   = SynchedEntityData.defineId(GingerbreadManEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> SITTING   = SynchedEntityData.defineId(GingerbreadManEntity.class, EntityDataSerializers.BOOLEAN);
-    private Player owner;
 
     public GingerbreadManEntity(EntityType<? extends TamableAnimal> type, Level world) {
         super(type, world);
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(CLASS, 0);
-        this.entityData.define(VARIANT, 0);
-        this.entityData.define(SITTING, false);
-    }
-
-    @Override
-    public void tick() {
-        super.tick();
-        if(this.getSitting()){
-            this.getNavigation().stop();
-        }
-    }
-
-    @Override
     protected void registerGoals() {
-        super.registerGoals();
         this.goalSelector.addGoal(0, new MeleeAttackGoal(this, 1.0D, false));
         this.goalSelector.addGoal(1, new RandomStrollGoal(this, 1.0f));
-        this.goalSelector.addGoal(2, new FollowPlayerOwnerGoal(this));
+        this.goalSelector.addGoal(2, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
         this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(4, new MeleeAttackGoal(this, 1.0D, false));
         this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
         this.targetSelector.addGoal(2, new HurtByTargetGoal(this));
+        super.registerGoals();
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
@@ -150,5 +133,22 @@ public class GingerbreadManEntity extends TamableAnimal implements IAnimatable, 
 
     public int getEntityClass(){
         return this.entityData.get(CLASS);
+    }
+
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(CLASS, 0);
+        this.entityData.define(VARIANT, 0);
+        this.entityData.define(SITTING, false);
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        if (this.getSitting()){
+            this.getNavigation().stop();
+        }
     }
 }
