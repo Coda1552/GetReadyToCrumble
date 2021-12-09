@@ -60,6 +60,7 @@ public class GingerbreadManEntity extends TamableAnimal implements IAnimatable, 
     @Override
     protected void registerGoals() {
         super.registerGoals();
+        this.goalSelector.addGoal(0, new MeleeAttackGoal(this, 1.0D, false));
         this.goalSelector.addGoal(1, new RandomStrollGoal(this, 1.0f));
         this.goalSelector.addGoal(2, new FollowPlayerOwnerGoal(this));
         this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
@@ -91,17 +92,12 @@ public class GingerbreadManEntity extends TamableAnimal implements IAnimatable, 
 
     @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
-        if(player.getItemInHand(hand).is(Items.IRON_SWORD)){
+        if (player.getItemInHand(hand).is(Items.IRON_SWORD)){
             this.setEntityClass(1);
         }
-        if(player.getItemInHand(hand).isEmpty()) {
-            if (!this.getSitting()) {
-                this.setSitting(true);
-                return InteractionResult.SUCCESS;
-            } else {
-                this.setSitting(false);
-                return InteractionResult.SUCCESS;
-            }
+        if (player.getItemInHand(hand).isEmpty()) {
+            this.setSitting(!getSitting());
+            return InteractionResult.SUCCESS;
         }
         return InteractionResult.FAIL;
     }
