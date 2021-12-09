@@ -1,6 +1,5 @@
 package coda.getreadytocrumble.common.entities;
 
-import coda.getreadytocrumble.common.entities.ai.FollowPlayerOwnerGoal;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -33,9 +32,8 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 public class GingerbreadManEntity extends TamableAnimal implements IAnimatable, IAnimationTickable {
     private final AnimationFactory factory = new AnimationFactory(this);
-    private static final EntityDataAccessor<Integer> CLASS   = SynchedEntityData.defineId(GingerbreadManEntity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> VARIANT   = SynchedEntityData.defineId(GingerbreadManEntity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Boolean> SITTING   = SynchedEntityData.defineId(GingerbreadManEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> CLASS = SynchedEntityData.defineId(GingerbreadManEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(GingerbreadManEntity.class, EntityDataSerializers.INT);
 
     public GingerbreadManEntity(EntityType<? extends TamableAnimal> type, Level world) {
         super(type, world);
@@ -47,23 +45,21 @@ public class GingerbreadManEntity extends TamableAnimal implements IAnimatable, 
         this.goalSelector.addGoal(1, new RandomStrollGoal(this, 1.0f));
         this.goalSelector.addGoal(2, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
         this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(4, new MeleeAttackGoal(this, 1.0D, false));
         this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
         this.targetSelector.addGoal(2, new HurtByTargetGoal(this));
-        super.registerGoals();
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        if(this.getSitting()){
+        if (this.isInSittingPose()) {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.gingerbreadman.sit", true));
             return PlayState.CONTINUE;
         }
-        if(event.isMoving()) {
+        if (event.isMoving()) {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.gingerbreadman.walk", true));
             return PlayState.CONTINUE;
         }
-        else{
+        else {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.gingerbreadman.idle", true));
             return PlayState.CONTINUE;
         }
@@ -91,7 +87,7 @@ public class GingerbreadManEntity extends TamableAnimal implements IAnimatable, 
 
             // sitting
             if (stack.isEmpty()) {
-                this.setSitting(!getSitting());
+                this.setInSittingPose(!isInSittingPose());
                 return InteractionResult.SUCCESS;
             }
         }
@@ -119,14 +115,6 @@ public class GingerbreadManEntity extends TamableAnimal implements IAnimatable, 
         return this.entityData.get(VARIANT);
     }
 
-    public void setSitting(boolean sitting){
-        this.entityData.set(SITTING, sitting);
-    }
-
-    public boolean getSitting(){
-        return this.entityData.get(SITTING);
-    }
-
     public void setEntityClass(int classIn){
         this.entityData.set(CLASS, classIn);
     }
@@ -135,20 +123,10 @@ public class GingerbreadManEntity extends TamableAnimal implements IAnimatable, 
         return this.entityData.get(CLASS);
     }
 
-
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(CLASS, 0);
         this.entityData.define(VARIANT, 0);
-        this.entityData.define(SITTING, false);
-    }
-
-    @Override
-    public void tick() {
-        super.tick();
-        if (this.getSitting()){
-            this.getNavigation().stop();
-        }
     }
 }
