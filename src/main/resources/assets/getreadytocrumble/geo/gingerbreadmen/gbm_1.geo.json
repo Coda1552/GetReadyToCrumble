@@ -54,6 +54,26 @@
 					]
 				},
 				{
+					"name": "mageHelmet",
+					"parent": "head",
+					"pivot": [5.5, 15.05, 0],
+					"rotation": [-2.5, 0, 0],
+					"cubes": [
+						{"origin": [-5.5, 17, -2.5], "size": [11, 5, 5], "inflate": 0.2, "uv": [0, 30]},
+						{"origin": [-7.5, 15.05, -4.5], "size": [15, 2, 9], "uv": [0, 47]}
+					]
+				},
+				{
+					"name": "mageHelmetEnd",
+					"parent": "mageHelmet",
+					"pivot": [-1.5, 21.05, -2.5],
+					"rotation": [0, 0, -5],
+					"cubes": [
+						{"origin": [7.5, 18.05, -1.5], "size": [2, 6, 3], "uv": [29, 37]},
+						{"origin": [-3.5, 20.05, -1.5], "size": [11, 4, 3], "uv": [0, 40]}
+					]
+				},
+				{
 					"name": "knightHelmet",
 					"parent": "head",
 					"pivot": [5.5, 10.05, -2.5],

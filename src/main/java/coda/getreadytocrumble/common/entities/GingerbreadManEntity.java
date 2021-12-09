@@ -9,6 +9,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FollowOwnerGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
@@ -80,14 +81,26 @@ public class GingerbreadManEntity extends TamableAnimal implements IAnimatable, 
             if (this.getEntityClass() == 0) {
                 // knight stuff
                 if (player.getItemInHand(hand).is(Items.IRON_SWORD)) {
+                    this.setItemInHand(InteractionHand.MAIN_HAND, player.getItemInHand(hand));
                     this.setEntityClass(1);
                     stack.shrink(1);
+                    this.getAttribute(Attributes.ARMOR).setBaseValue(8.0D);
+                    return InteractionResult.SUCCESS;
+                }
+                //mage stuff
+                if (player.getItemInHand(hand).is(Items.BLAZE_ROD)) {
+                    this.setItemInHand(InteractionHand.MAIN_HAND, player.getItemInHand(hand));
+                    this.setEntityClass(2);
+                    stack.shrink(1);
+                    this.getAttribute(Attributes.ARMOR).setBaseValue(8.0D);
+                    return InteractionResult.SUCCESS;
                 }
             }
 
             // sitting
             if (stack.isEmpty()) {
                 this.setInSittingPose(!isInSittingPose());
+                this.setOrderedToSit(!isOrderedToSit());
                 return InteractionResult.SUCCESS;
             }
         }
@@ -104,6 +117,14 @@ public class GingerbreadManEntity extends TamableAnimal implements IAnimatable, 
     @Override
     public AnimationFactory getFactory() {
         return this.factory;
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        if(this.isInSittingPose()){
+            this.getNavigation().stop();
+        }
     }
 
     @Override
