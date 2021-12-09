@@ -4,17 +4,23 @@ import coda.getreadytocrumble.common.entities.ai.FollowPlayerOwnerGoal;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.IAnimationTickable;
 import software.bernie.geckolib3.core.PlayState;
@@ -24,14 +30,14 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
-public class GingerbreadManEntity extends PathfinderMob implements IAnimatable, IAnimationTickable {
+public class GingerbreadManEntity extends TamableAnimal implements IAnimatable, IAnimationTickable {
     private final AnimationFactory factory = new AnimationFactory(this);
     private static final EntityDataAccessor<Integer> CLASS   = SynchedEntityData.defineId(GingerbreadManEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> VARIANT   = SynchedEntityData.defineId(GingerbreadManEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> SITTING   = SynchedEntityData.defineId(GingerbreadManEntity.class, EntityDataSerializers.BOOLEAN);
     private Player owner;
 
-    public GingerbreadManEntity(EntityType<? extends PathfinderMob> type, Level world) {
+    public GingerbreadManEntity(EntityType<? extends TamableAnimal> type, Level world) {
         super(type, world);
     }
 
@@ -54,14 +60,14 @@ public class GingerbreadManEntity extends PathfinderMob implements IAnimatable, 
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(2, new FollowPlayerOwnerGoal(this));
-        this.goalSelector.addGoal(2, new HurtByTargetGoal(this));
-        this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(1, new RandomStrollGoal(this, 1.0f));
+        this.goalSelector.addGoal(2, new FollowPlayerOwnerGoal(this));
+        this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(4, new MeleeAttackGoal(this, 1.0D, false));
+        this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
+        this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
         this.targetSelector.addGoal(2, new HurtByTargetGoal(this));
     }
-
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
         if(this.getSitting()){
@@ -84,7 +90,7 @@ public class GingerbreadManEntity extends PathfinderMob implements IAnimatable, 
     }
 
     @Override
-    protected InteractionResult mobInteract(Player player, InteractionHand hand) {
+    public InteractionResult mobInteract(Player player, InteractionHand hand) {
         if(player.getItemInHand(hand).is(Items.IRON_SWORD)){
             this.setEntityClass(1);
         }
@@ -98,6 +104,12 @@ public class GingerbreadManEntity extends PathfinderMob implements IAnimatable, 
             }
         }
         return InteractionResult.FAIL;
+    }
+
+    @Nullable
+    @Override
+    public AgeableMob getBreedOffspring(ServerLevel p_146743_, AgeableMob p_146744_) {
+        return null;
     }
 
     @Override
