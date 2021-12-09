@@ -95,14 +95,24 @@ public class GingerbreadManEntity extends TamableAnimal implements IAnimatable, 
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
 
-        if (player.getItemInHand(hand).is(Items.IRON_SWORD)) {
-            this.setEntityClass(1);
-            stack.shrink(1);
+        // only the owner can interact
+        if (getOwner() != null && getOwner().is(player)) {
+            // can only be interacted with if it has no class
+            if (this.getEntityClass() == 0) {
+                // knight stuff
+                if (player.getItemInHand(hand).is(Items.IRON_SWORD)) {
+                    this.setEntityClass(1);
+                    stack.shrink(1);
+                }
+            }
+
+            // sitting
+            if (stack.isEmpty()) {
+                this.setSitting(!getSitting());
+                return InteractionResult.SUCCESS;
+            }
         }
-        if (player.getItemInHand(hand).isEmpty()) {
-            this.setSitting(!getSitting());
-            return InteractionResult.SUCCESS;
-        }
+
         return InteractionResult.FAIL;
     }
 
@@ -124,14 +134,6 @@ public class GingerbreadManEntity extends TamableAnimal implements IAnimatable, 
 
     public int getVariant(){
         return this.entityData.get(VARIANT);
-    }
-
-    public void setOwner(Player owner){
-        this.owner = owner;
-    }
-
-    public Player getOwner(){
-        return this.owner;
     }
 
     public void setSitting(boolean sitting){
