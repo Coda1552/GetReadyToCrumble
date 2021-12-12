@@ -49,7 +49,6 @@ public class GingerBreadManItem extends Item {
             } else {
                 blockpos1 = pos.relative(direction);
             }
-
             gbm.moveTo(blockpos1.getX() + 0.5F, blockpos1.getY() + 0.5F, blockpos1.getZ() + 0.5F);
             gbm.tame(player);
             gbm.finalizeSpawn((ServerLevel) level, level.getCurrentDifficultyAt(player.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);

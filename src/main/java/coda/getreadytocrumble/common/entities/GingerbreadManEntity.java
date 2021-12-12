@@ -1,5 +1,6 @@
 package coda.getreadytocrumble.common.entities;
 
+import coda.getreadytocrumble.common.entities.ai.GingerBreadManAttackGoal;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -35,6 +36,7 @@ public class GingerbreadManEntity extends TamableAnimal implements IAnimatable, 
     private final AnimationFactory factory = new AnimationFactory(this);
     private static final EntityDataAccessor<Integer> CLASS = SynchedEntityData.defineId(GingerbreadManEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(GingerbreadManEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> ATTACKING = SynchedEntityData.defineId(GingerbreadManEntity.class, EntityDataSerializers.BOOLEAN);
 
     public GingerbreadManEntity(EntityType<? extends TamableAnimal> type, Level world) {
         super(type, world);
@@ -42,16 +44,21 @@ public class GingerbreadManEntity extends TamableAnimal implements IAnimatable, 
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new MeleeAttackGoal(this, 1.0D, false));
+        //this.goalSelector.addGoal(0, new MeleeAttackGoal(this, 1.0D, false));
         this.goalSelector.addGoal(1, new RandomStrollGoal(this, 1.0f));
         this.goalSelector.addGoal(2, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
         this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
         this.targetSelector.addGoal(2, new HurtByTargetGoal(this));
+        this.targetSelector.addGoal(0, new GingerBreadManAttackGoal(this));
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+        if(this.getAttacking()){
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.gingerbreadman.attack", false));
+            return PlayState.CONTINUE;
+        }
         if (this.isInSittingPose()) {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.gingerbreadman.sit", true));
             return PlayState.CONTINUE;
@@ -92,7 +99,7 @@ public class GingerbreadManEntity extends TamableAnimal implements IAnimatable, 
                     this.setItemInHand(InteractionHand.MAIN_HAND, player.getItemInHand(hand));
                     this.setEntityClass(2);
                     stack.shrink(1);
-                    this.getAttribute(Attributes.ARMOR).setBaseValue(8.0D);
+                    this.getAttribute(Attributes.ARMOR).setBaseValue(2.0D);
                     return InteractionResult.SUCCESS;
                 }
             }
@@ -144,10 +151,19 @@ public class GingerbreadManEntity extends TamableAnimal implements IAnimatable, 
         return this.entityData.get(CLASS);
     }
 
+    public void setAttacking(boolean attacking){
+        this.entityData.set(ATTACKING, attacking);
+    }
+
+    public boolean getAttacking(){
+        return this.entityData.get(ATTACKING);
+    }
+
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(CLASS, 0);
         this.entityData.define(VARIANT, 0);
+        this.entityData.define(ATTACKING, false);
     }
 }

@@ -17,7 +17,7 @@ public final class GRTCEntityAttributes {
     @SubscribeEvent
     public static void EntityAttributeCreationEvent(EntityAttributeCreationEvent event) {
         event.put(GRTCEntities.GINGERBREAD_MAN.get(), Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH,15.0d)
+                .add(Attributes.MAX_HEALTH,25.0d)
                 .add(Attributes.MOVEMENT_SPEED, 0.3d)
                 .add(Attributes.KNOCKBACK_RESISTANCE,0.1d)
                 .add(Attributes.ARMOR, 0.35d)
