@@ -40,7 +40,7 @@ public class GingerBreadManAttackGoal extends Goal {
                     this.entity.getNavigation().stop();
                     this.entity.setAttacking(true);
                     if (this.timer == 14) {
-                        this.tryHurtTarget(this.entity, this.entity.distanceTo(this.entity.getTarget()));
+                        this.tryHurtTarget(this.entity, this.entity.distanceToSqr(this.entity.getTarget()));
                     }
                 } else {
                     this.timer = 0;
@@ -54,13 +54,13 @@ public class GingerBreadManAttackGoal extends Goal {
         }
     }
 
-    protected void tryHurtTarget(GingerbreadManEntity entity, double distanceTo){
-        if(distanceTo < this.getAttackReachSqr(entity)){
+    protected void tryHurtTarget(GingerbreadManEntity entity, double distanceTo) {
+        if (distanceTo < this.getAttackReachSqr(entity)) {
             this.entity.doHurtTarget(this.entity.getTarget());
         }
     }
 
     protected double getAttackReachSqr(LivingEntity entity) {
-        return (double)(entity.getBbWidth() * 1.2F * entity.getBbWidth() * 1.2F + entity.getBbWidth());
+        return entity.getBbWidth() * 1.2F * entity.getBbWidth() * 1.2F + entity.getBbWidth();
     }
 }
