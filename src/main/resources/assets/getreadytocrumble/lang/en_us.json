@@ -4,10 +4,12 @@
   "item.getreadytocrumble.magical_dough": "Magical Dough",
   "item.getreadytocrumble.gingerbread_man": "Gingerbread Man",
   "item.tooltip.gingerbreadman": "Made with love, ginger, and a few ingredients not allowed by the FDA...",
+  "item.getreadytocrumble.grandma_spawn_egg": "Grandma Spawn Egg",
 
   "block.getreadytocrumble.oven": "Oven",
 
   "entity.getreadytocrumble.gingerbread_man": "Gingerbead Man",
+  "entity.getreadytocrumble.grandma": "Grandma",
 
   "container.getreadytocrumble.oven": "Oven"
 }

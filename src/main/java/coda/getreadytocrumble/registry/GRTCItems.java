@@ -6,6 +6,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
+import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -26,4 +27,5 @@ public class GRTCItems {
             return true;
         }
     });
+    public static final RegistryObject<Item> GRANDMA_SPAWN_EGG = ITEMS.register("grandma_spawn_egg", () -> new ForgeSpawnEggItem(GRTCEntities.GRANDMA, 0xc6c7b3, 0x5b4d6d, new Item.Properties().tab(TAB)));
 }

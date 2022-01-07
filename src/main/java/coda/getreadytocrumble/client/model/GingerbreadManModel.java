@@ -12,7 +12,7 @@ public class GingerbreadManModel extends AnimatedTickingGeoModel<GingerbreadManE
 
     @Override
     public ResourceLocation getModelLocation(GingerbreadManEntity object) {
-        return new ResourceLocation(GetReadyToCrumble.MOD_ID, "geo/gingerbreadmen/gbm_1.geo.json");
+        return new ResourceLocation(GetReadyToCrumble.MOD_ID, "geo/entity/gbm_1.geo.json");
     }
 
     @Override

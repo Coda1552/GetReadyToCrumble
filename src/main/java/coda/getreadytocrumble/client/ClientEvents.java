@@ -2,6 +2,7 @@ package coda.getreadytocrumble.client;
 
 import coda.getreadytocrumble.GetReadyToCrumble;
 import coda.getreadytocrumble.client.renderer.GingerbreadManRenderer;
+import coda.getreadytocrumble.client.renderer.GrandmaRenderer;
 import coda.getreadytocrumble.client.screen.OvenScreen;
 import coda.getreadytocrumble.registry.GRTCEntities;
 import coda.getreadytocrumble.registry.GRTCMenus;
@@ -23,5 +24,6 @@ public class ClientEvents {
     @SubscribeEvent
     public static void registerRenderers(final EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(GRTCEntities.GINGERBREAD_MAN.get(), GingerbreadManRenderer::new);
+        event.registerEntityRenderer(GRTCEntities.GRANDMA.get(), GrandmaRenderer::new);
     }
 }

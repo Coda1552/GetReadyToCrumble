@@ -22,8 +22,16 @@ public final class GRTCEntityAttributes {
                 .add(Attributes.KNOCKBACK_RESISTANCE,0.1d)
                 .add(Attributes.ARMOR, 0.35d)
                 .add(Attributes.ATTACK_DAMAGE, 1.2d)
-                .add(Attributes.ATTACK_DAMAGE, 1.2d)
                 .add(Attributes.FOLLOW_RANGE, 28.0d)
+                .build());
+
+        event.put(GRTCEntities.GRANDMA.get(), Mob.createMobAttributes()
+                .add(Attributes.MAX_HEALTH,75.0d)
+                .add(Attributes.MOVEMENT_SPEED, 0.3d)
+                .add(Attributes.KNOCKBACK_RESISTANCE,0.15d)
+                .add(Attributes.ARMOR, 0.5d)
+                .add(Attributes.ATTACK_DAMAGE, 3.0d)
+                .add(Attributes.FOLLOW_RANGE, 48.0d)
                 .build());
     }
 }
